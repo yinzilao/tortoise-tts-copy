@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+# Runpod Template: https://github.com/yinzilao/tortoise-tts-copy.git
+
 # Install dependencies
 sudo apt-get update
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \

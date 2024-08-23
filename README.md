@@ -1,3 +1,6 @@
+# Tortoise on Runpod
+Template: https://github.com/yinzilao/tortoise-tts-copy.git
+
 # TorToiSe
 
 Tortoise is a text-to-speech program built with the following priorities:
