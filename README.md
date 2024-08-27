@@ -1,27 +1,153 @@
 # Tortoise on Runpod
-Template: https://github.com/yinzilao/tortoise-tts-copy.git
+Template: https://www.runpod.io/console/explore/runpod-vscode
+Code repo: https://github.com/yinzilao/tortoise-tts-copy.git
 
-* Deploy -> Select GPU -> Deploy
+* Deploy -> Select GPU (Community Cloud: RTX A4000) -> Deploy
+
+First time connect:
 * When ready: Connect -> Configure Public Key: ssh-keygen -t xxx -C "your_email@example.com"
 * Run the script in your local terminal.
+``` bash
 ssh-keygen -t xxx -C "your_email@example.com"
 cat cat ~/.ssh/id_xxx.pub
 To see your public key
-
-* Connection Options -> run basic ssh in local terminal
+```
+* Connection Options -> find bash ssh command -> run basic ssh in local terminal
 
 * When connected, run 
 cat ~/.ssh/authorized_keys
 
 * Check whether your public key is in the ~/.ssh/authorized_keys
 * If not, add using 
+```bash
 cat << 'EOF' >> ~/.ssh/authorized_keys
 YOUR-PUB-KEY
 EOF
+```
+
+
+in VS Code
+* Ctl+Shift+P 
+* Select Remote-ssh: Open Ssh configuration file. add
+```
+Host RunPod-VSCode
+    HostName <pod-public-ip>
+    User root
+    Port <pod-external-port>
+    IdentityFile ~/.ssh/id_<your-key-file>
+```
+* Ctl+Shift+P
+* Remote-ssh: connect to host -> RunPod-VSCode
+
+Reconnect to a new VS Code Pod:
 
 * Ctl+Shift+P in VS Code
 * Select Remote-ssh: Open Ssh configuration file
+```
+Host RunPod-VSCode
+    HostName <pod-public-ip>
+    User root
+    Port <pod-external-port>
+    IdentityFile ~/.ssh/id_<your-key-file>
+```
+* Ctl+Shift+P
+* Remote-ssh: connect to host -> RunPod-VSCode
 
+If it fails, in a terminal, try
+```bash
+ssh root@<pod-public-ip> -p <pod-external-port> -i ~/.ssh/id_<your-key-file>
+```
+ 
+* Ctl+Shift+P
+* Remote-ssh: connect to host -> RunPod-VSCode
+
+## Clone from Github
+https://github.com/yinzilao/tortoise-tts-copy.git
+
+clone to /root/
+
+new terminal
+
+run 
+```bash
+bash setup_python_env.sh # or run line by line (recommended)
+bash install_python_pkgs.sh # or run line by line (recommended)
+
+```
+
+Install python extension in VS Code
+
+## Test
+time python tortoise/do_tts.py --preset ultra_fast --voice 'train_atkins&train_kennard' --text "\[I am really sad,\] Please feed me."
+
+time python tortoise/do_tts.py \
+    --output_path ./results \
+    --seed 12345 \
+    --preset ultra_fast \
+    --voice train_kennard \
+    --text "One day, Amelia's mother took her to see the first-ever airplane. As she watched the magnificent machine take to the skies, Amelia's eyes grew wide with wonder. 'Someday, I'll be up there too\!' she said with excitement."
+
+
+ 
+#### trained good quality voices suitable for book reading
+train_kennard
+train_atkins
+
+
+## Debugging in Code VS (remote host) 
+To set up debugging for a Python script in VS Code while handling the various arguments, you need to configure the `launch.json` file to include all the arguments as needed. 
+
+### 1. **Open the `launch.json` File**
+
+If you don’t have a `launch.json` file yet:
+1. Go to the Run and Debug view in VS Code (`Ctrl+Shift+D`).
+2. Click on **create a launch.json file**.
+3. Select **Python** when prompted.
+
+If you already have a `launch.json` file, open it from the `.vscode` directory in your project.
+
+### 2. **Edit the `launch.json` File**
+
+Here's how to configure `launch.json` to include all the arguments for your script. Replace the placeholder values with actual values or leave them as they are if you want to specify them when starting the debug session.
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "-p", "ultra_fast",
+                "-O", "./results",
+                "-v", "train_kennard,train_atkins",
+                "--candidates", "5",
+            ]
+        }
+    ]
+}
+```
+
+### 3. **Start Debugging**
+
+1. Save the `launch.json` file.
+2. Go to the Run and Debug view (`Ctrl+Shift+D`).
+3. Select the configuration you created (`Python: Script with Args`).
+4. Click the green play button or press `F5` to start debugging.
+
+### 4. **Interact with the Debugging Session**
+
+While debugging, you can:
+- **Use Breakpoints**: Click in the margin next to line numbers to set breakpoints.
+- **Inspect Variables**: Check variable values in the **Variables** panel.
+- **Evaluate Expressions**: Use the **Debug Console** to run code snippets and evaluate expressions.
+- **Step Through Code**: Use the step-over, step-into, and step-out buttons to navigate through your code.
 
 # TorToiSe
 
