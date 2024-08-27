@@ -1,6 +1,28 @@
 # Tortoise on Runpod
 Template: https://github.com/yinzilao/tortoise-tts-copy.git
 
+* Deploy -> Select GPU -> Deploy
+* When ready: Connect -> Configure Public Key: ssh-keygen -t xxx -C "your_email@example.com"
+* Run the script in your local terminal.
+ssh-keygen -t xxx -C "your_email@example.com"
+cat cat ~/.ssh/id_xxx.pub
+To see your public key
+
+* Connection Options -> run basic ssh in local terminal
+
+* When connected, run 
+cat ~/.ssh/authorized_keys
+
+* Check whether your public key is in the ~/.ssh/authorized_keys
+* If not, add using 
+cat << 'EOF' >> ~/.ssh/authorized_keys
+YOUR-PUB-KEY
+EOF
+
+* Ctl+Shift+P in VS Code
+* Select Remote-ssh: Open Ssh configuration file
+
+
 # TorToiSe
 
 Tortoise is a text-to-speech program built with the following priorities:
