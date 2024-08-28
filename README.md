@@ -77,7 +77,7 @@ bash install_python_pkgs.sh # or run line by line (recommended)
 
 Install python extension in VS Code
 
-## Test
+## Test on host
 ```bash
 time python tortoise/do_tts.py --preset ultra_fast --voice 'train_atkins&train_kennard' --text "\[I am really sad,\] Please feed me."
 ```
@@ -162,6 +162,29 @@ While debugging, you can:
 - **Inspect Variables**: Check variable values in the **Variables** panel.
 - **Evaluate Expressions**: Use the **Debug Console** to run code snippets and evaluate expressions.
 - **Step Through Code**: Use the step-over, step-into, and step-out buttons to navigate through your code.
+
+
+## Start API Server
+```bash
+uvicorn server.main:app --host 0.0.0.0 --port 8000
+```
+
+## Client usage example
+
+```bash
+# request tts
+curl -X POST "http://localhost:8000/tts" \
+     -H "Content-Type: application/json" \
+     -d '{
+         "text": "'Wow! There is a BIG airplane!' said Amelia excitedly.",
+         "voice": "custom_milli",
+         "preset": "ultra_fast",
+         "seed": "12345"
+     }'
+
+# download generated file
+curl -o custom_milli_0_0.wav http://localhost:8000/download/custom_milli_0_0.wav
+```
 
 # TorToiSe
 
