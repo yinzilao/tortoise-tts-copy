@@ -78,21 +78,35 @@ bash install_python_pkgs.sh # or run line by line (recommended)
 Install python extension in VS Code
 
 ## Test
+```bash
 time python tortoise/do_tts.py --preset ultra_fast --voice 'train_atkins&train_kennard' --text "\[I am really sad,\] Please feed me."
+```
 
-time python tortoise/do_tts.py \
+```bash
+time python3 tortoise/do_tts.py \
     --output_path ./results \
     --seed 12345 \
     --preset ultra_fast \
     --voice train_kennard \
     --text "One day, Amelia's mother took her to see the first-ever airplane. As she watched the magnificent machine take to the skies, Amelia's eyes grew wide with wonder. 'Someday, I'll be up there too\!' she said with excitement."
+```
 
-
+Custom voice:
+```bash
+time python tortoise/do_tts.py \
+    --output_path ./results \
+    --seed 54321 \
+    --preset standard \
+    --voice 'custom_milli' \
+    --text "One day, Amelia's mother took her to see the first-ever airplane. As she watched the magnificent machine take to the skies, Amelia's eyes grew wide with wonder. 'Someday, I'll be up there too\!' she said with excitement."
+```
  
 #### trained good quality voices suitable for book reading
 train_kennard
 train_atkins
 
+custom voice:
+custom_milli
 
 ## Debugging in Code VS (remote host) 
 To set up debugging for a Python script in VS Code while handling the various arguments, you need to configure the `launch.json` file to include all the arguments as needed. 
