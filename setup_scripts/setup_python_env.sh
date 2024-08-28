@@ -21,16 +21,16 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 EOF
 
-# Reload shell configuration
+echo "Config github"
+
+git config --global user.email "yinzilao@outlook.com"
+git config --global user.name "yinzilao"
+
+echo "run command:
+
 source ~/.bashrc
 
-# Install Python versions
-# pyenv install 3.8.12
-pyenv install 3.9.9
-# pyenv install 3.10.4
+Then:
 
-# Set global Python version
-pyenv global 3.9.9
+bash install_python_pkgs.sh"
 
-# Verify Python and pip versions
-python --version
